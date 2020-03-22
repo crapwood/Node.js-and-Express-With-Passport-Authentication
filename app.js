@@ -1,26 +1,38 @@
-var createError = require("http-errors");
-var express = require("express");
-var path = require("path");
-var cookieParser = require("cookie-parser");
-var logger = require("morgan");
+const createError = require("http-errors");
+const express = require("express");
+const path = require("path");
+const cookieParser = require("cookie-parser");
+const logger = require("morgan");
+const mongoose = require("mongoose");
 
-var indexRouter = require("./routes/index");
-var usersRouter = require("./routes/users");
-var signupRouter = require("./routes/signup");
-var loginRouter = require("./routes/login");
+const indexRouter = require("./routes/index");
+const usersRouter = require("./routes/users");
+const signupRouter = require("./routes/signup");
+const loginRouter = require("./routes/login");
 
-var app = express();
+const app = express();
 
-// view engine setup
+// DB config
+const db = require("./config/keys").MongoURI;
+
+// Connect to MongoDB
+mongoose
+  .connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log("MongoDB Connected..."))
+  .catch(err => console.log(err));
+
+// view engine setup EJS
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
+// MIDDLEWARES
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
+// ROUTES
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/signup", signupRouter);
