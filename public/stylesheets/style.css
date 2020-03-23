@@ -9,11 +9,22 @@
 a {
   color: #00b7ff;
 } */
-
+body {
+  background-color: gray;
+  color: black;
+}
 .index-container {
   display: flex;
   flex-direction: column;
   height: 100vh;
   justify-content: center;
   align-items: center;
+}
+.signup-container {
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+  justify-content: center;
+  height: 100vh;
+  /* align-items: center; */
 }
