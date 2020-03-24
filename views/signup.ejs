@@ -9,6 +9,7 @@
           class="form-control"
           id="name"
           name="name"
+          value="<%= typeof name != 'undefined' ? name : '' %>"
           required
         />
       </div>
@@ -21,6 +22,7 @@
           class="form-control"
           id="staticEmail"
           name="email"
+          value="<%= typeof email != 'undefined' ? email : '' %>"
           required
         />
       </div>
@@ -35,6 +37,7 @@
           class="form-control"
           id="inputPassword"
           name="password"
+          value="<%= typeof password != 'undefined' ? password : '' %>"
           required
         />
       </div>
@@ -49,6 +52,7 @@
           class="form-control"
           id="inputConfirmPassword"
           name="confirm_password"
+          value="<%= typeof confirm_password != 'undefined' ? confirm_password : '' %>"
           required
         />
       </div>
