@@ -4,6 +4,13 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const mongoose = require("mongoose");
+const passport = require("passport");
+const flash = require("connect-flash");
+const session = require("express-session");
+
+const initializePassport = require("./config/passport");
+
+initializePassport(passport);
 
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
@@ -24,6 +31,18 @@ mongoose
 // view engine setup EJS
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
+
+// Express Session
+app.use(
+  session({
+    secret: "secret",
+    resave: false,
+    saveUninitialized: false
+  })
+);
+
+// Connect Flash
+app.use(flash());
 
 // MIDDLEWARES
 app.use(logger("dev"));
