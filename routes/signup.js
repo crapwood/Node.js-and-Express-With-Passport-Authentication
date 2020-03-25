@@ -49,24 +49,25 @@ router.post("/", (req, res) => {
           confirm_password
         });
       } else {
-        // const hashedPassword = bcrypt.hash(req.body.password, 10);
-        const hashedPassword = "";
-        bcrypt.hash(password, saltRounds, function(err, hash) {
-          // Store hash in your password DB.
-          hashedPassword = hash;
-        });
         const newUser = new User({
           name: name,
           email: email,
-          password: hashedPassword
+          password: password
         });
-        newUser.save((err, user) => {
-          if (err) {
-            console.log(err);
-          } else {
-            console.log(user);
-          }
+
+        bcrypt.genSalt(10, (err, salt) => {
+          bcrypt.hash(newUser.password, salt, (err, hash) => {
+            if (err) throw err;
+            // Set password to hashed password
+            newUser.password = hash;
+
+            newUser
+              .save()
+              .then()
+              .catch(err => console.log(err));
+          });
         });
+        req.flash("success", "You are now registered and can login");
         res.redirect("/login");
       }
     });

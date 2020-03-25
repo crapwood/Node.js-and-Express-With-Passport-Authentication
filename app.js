@@ -8,16 +8,16 @@ const passport = require("passport");
 const flash = require("connect-flash");
 const session = require("express-session");
 
-const initializePassport = require("./config/passport");
+const app = express();
 
-initializePassport(passport);
+// Passport config
+require("./config/passport")(passport);
 
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 const signupRouter = require("./routes/signup");
 const loginRouter = require("./routes/login");
-
-const app = express();
+const homeRouter = require("./routes/home");
 
 // DB config
 const db = require("./config/keys").MongoURI;
@@ -41,8 +41,20 @@ app.use(
   })
 );
 
+// Passport middlewares
+app.use(passport.initialize());
+app.use(passport.session());
+
 // Connect Flash
 app.use(flash());
+
+// Global Vars
+app.use((req, res, next) => {
+  res.locals.success_msg = req.flash("success");
+  res.locals.error_msg = req.flash("error_msg");
+  res.locals.error = req.flash("error");
+  next();
+});
 
 // MIDDLEWARES
 app.use(logger("dev"));
@@ -56,6 +68,7 @@ app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/signup", signupRouter);
 app.use("/login", loginRouter);
+app.use("/home", homeRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

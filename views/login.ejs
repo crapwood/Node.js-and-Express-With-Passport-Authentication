@@ -1,15 +1,26 @@
-<form>
-  <div class="form-group col justify-content-md-center">
-    <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
-    <div class="col-sm-5">
-      <input type="text" class="form-control" id="staticEmail" />
+<div class="container-fluid login-container">
+  <% include ./error %>
+  <form method="POST" action="/login">
+    <div class="form-group row justify-content-md-center">
+      <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
+      <div class="col-sm-5">
+        <input type="text" class="form-control" id="staticEmail" />
+      </div>
     </div>
-    <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
-    <div class="col-sm-5">
-      <input type="text" class="form-control" id="inputPassword" />
+    <div class="form-group row justify-content-md-center">
+      <label for="inputPassword" class="col-sm-2 col-form-label"
+        >Password</label
+      >
+      <div class="col-sm-5">
+        <input type="text" class="form-control" id="inputPassword" />
+      </div>
     </div>
-  </div>
-</form>
+    <div class="form-group row justify-content-md-center">
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+  </form>
+</div>
+
 <script
   src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
   integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
