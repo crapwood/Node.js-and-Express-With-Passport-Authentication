@@ -16,6 +16,8 @@ module.exports = function(passport) {
 
         // Match password
         bcrypt.compare(password, user.password, (err, isMatch) => {
+          console.log(password);
+          console.log(user.password);
           if (err) throw err;
           if (isMatch) {
             return done(null, user);
@@ -28,6 +30,7 @@ module.exports = function(passport) {
   };
 
   passport.use(new LocalStrategy({ usernameField: "email" }, authenticateUser));
+
   passport.serializeUser((user, done) => {
     done(null, user.id);
   });
